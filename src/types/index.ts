@@ -9,3 +9,8 @@ export type Job = {
     payment_to: number;
     payment_from: number;
 }
+
+export type Industry = {
+    key: number;
+    title_rus: string;
+}

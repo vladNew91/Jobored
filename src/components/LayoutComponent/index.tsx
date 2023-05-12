@@ -22,6 +22,8 @@ import { useCurrentPath, useGoToPage } from "../../helpers";
 const Children = styled("div")(({
     height: "calc(100vh - 64px)",
     overflowY: "auto",
+    padding: "40px 0",
+    boxSizing: "border-box",
 }));
 
 type LayoutComponentProps = {
@@ -47,7 +49,7 @@ export const LayoutComponent: FC<LayoutComponentProps> = ({
     const handleSelectMenuItem = useCallback((path: string) => {
         goToPage(path);
         handleMenuClose();
-    }, [goToPage]);
+    }, [goToPage, handleMenuClose]);
 
     return (
         <>

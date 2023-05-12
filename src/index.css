@@ -5,7 +5,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #232134;
   font-weight: 400;
-  font-size: 16px,
+  font-size: 16px;
+  background: #F7F7F8;
 }
 
 code {

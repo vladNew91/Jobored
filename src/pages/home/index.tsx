@@ -2,13 +2,14 @@ import { FC } from "react";
 import { Job } from "../../types";
 import { useQuery } from "react-query";
 import { getSalary } from "../../helpers";
-import { getJobsRequest } from "../../api";
+import { getDataRequest } from "../../api";
+import { blue } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
-import { blue } from "@mui/material/colors";
+import { FilterComponent } from "../../components";
 
 export const HomePage: FC = (): JSX.Element => {
-    const { data, isLoading } = useQuery("jobs", getJobsRequest, {
+    const { data } = useQuery("vacancies", () => getDataRequest("vacancies"), {
         refetchOnMount: false,
         refetchOnWindowFocus: false,
     });
@@ -17,6 +18,8 @@ export const HomePage: FC = (): JSX.Element => {
 
     return (
         <div>
+            <FilterComponent />
+
             {data ? (
                 <List>
                     {data.objects.map((el: Job) => (
