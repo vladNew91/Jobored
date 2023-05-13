@@ -8,7 +8,7 @@ export const theme = createTheme({
             'sans-serif',
         ].join(','),
         button: {
-            textTransform: 'none'
+            textTransform: 'none',
         },
     },
 });

@@ -11,7 +11,7 @@ const Article = styled("span")(({
 
 export const FilterComponent: FC = (): JSX.Element => {
     return (
-        <Box width={{ xs: "100%", sm: "315px" }}>
+        <Box width={{ xs: "100%", sm: "315px" }} mb={2}>
             <Paper
                 sx={{
                     p: "20px",
@@ -72,6 +72,7 @@ export const FilterComponent: FC = (): JSX.Element => {
                     sx={{
                         fontSize: "14px",
                         fontWeight: 500,
+                        background: "#5E96FC",
                     }}
                 >
                     Apply
