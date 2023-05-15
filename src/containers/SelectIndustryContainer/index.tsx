@@ -35,7 +35,7 @@ export const SelectIndustryContainer: FC = (): JSX.Element => {
             onChange={handleChangeIndustry}
             disabled={isLoading}
           >
-            {data && data.map((el: Industry) => (
+            {data && (data as Industry[]).map((el: Industry) => (
               <MenuItem
                 key={el.key}
                 value={el.title_rus}

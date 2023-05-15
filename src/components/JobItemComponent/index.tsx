@@ -6,7 +6,7 @@ import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Box, Link, Paper, Tooltip, Typography, styled } from "@mui/material";
 
-const Card = styled(Paper)(({ theme }) => ({
+export const Card = styled(Paper)(({ theme }) => ({
     minHeight: "137px",
     display: "flex",
     borderRadius: "12px",

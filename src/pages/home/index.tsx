@@ -7,7 +7,7 @@ import { FilterComponent } from "../../components";
 export const HomePage: FC = (): JSX.Element => {
     const isAuthorized: boolean = !!localStorage.getItem("isAuth");
 
-    if(!isAuthorized) getAccessToken();
+    if (!isAuthorized) getAccessToken();
 
     return (
         <Box

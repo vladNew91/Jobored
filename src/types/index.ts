@@ -10,6 +10,10 @@ export type Job = {
     payment_from: number;
 }
 
+export type JobsData = {
+    objects: Job[];
+}
+
 export type Industry = {
     key: number;
     title_rus: string;

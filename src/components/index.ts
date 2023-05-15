@@ -3,3 +3,4 @@ export * from "./MobileMenuComponent";
 export * from "./FiltersComponent";
 export * from "./ErrorAlertComponent";
 export * from "./JobItemComponent";
+export * from "./JobsSkeletonComponent";

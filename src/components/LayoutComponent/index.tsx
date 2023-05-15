@@ -11,7 +11,6 @@ import {
     Toolbar,
     Typography,
     IconButton,
-    ButtonGroup,
 } from '@mui/material';
 import logo from '../../assets/logo.png';
 import { blue } from "@mui/material/colors";
@@ -54,7 +53,7 @@ export const LayoutComponent: FC<LayoutComponentProps> = ({
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" color="inherit">
+                <AppBar position="static" color="inherit" elevation={0}>
                     <Toolbar>
                         <IconButton onClick={() => goToPage("/")}>
                             <img src={logo} alt="logo" />
@@ -72,32 +71,33 @@ export const LayoutComponent: FC<LayoutComponentProps> = ({
                             Jobored
                         </Typography>
 
-                        <Box m="auto" display={{ xs: 'none', sm: 'block' }}>
-                            <ButtonGroup
+                        <Box
+                            m="auto"
+                            width={275}
+                            display={{ xs: 'none', sm: 'flex' }}
+                            justifyContent="space-between"
+                        >
+                            <Button
                                 variant="text"
-                                aria-label="text button group"
-                                color="inherit"
+                                sx={{
+                                    fontWeight: path === "/" ? 500 : 400,
+                                    color: path === "/" ? blue[500] : "inherit",
+                                }}
+                                onClick={() => goToPage("/")}
                             >
-                                <Button
-                                    sx={{
-                                        fontWeight: path === "/" ? 500 : 400,
-                                        color: path === "/" ? blue[500] : "",
-                                    }}
-                                    onClick={() => goToPage("/")}
-                                >
-                                    Search vacancies
-                                </Button>
+                                Search vacancies
+                            </Button>
 
-                                <Button
-                                    sx={{
-                                        fontWeight: path !== "/" ? 500 : 400,
-                                        color: path !== "/" ? blue[500] : "",
-                                    }}
-                                    onClick={() => goToPage("/favorites")}
-                                >
-                                    Favorites
-                                </Button>
-                            </ButtonGroup>
+                            <Button
+                                variant="text"
+                                sx={{
+                                    fontWeight: path !== "/" ? 500 : 400,
+                                    color: path !== "/" ? blue[500] : "inherit",
+                                }}
+                                onClick={() => goToPage("/favorites")}
+                            >
+                                Favorites
+                            </Button>
                         </Box>
 
                         <Box flexGrow={1} display={{ xs: 'flex', sm: 'none' }}></Box>
