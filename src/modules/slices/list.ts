@@ -2,12 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Job } from "../../types";
 
 export interface ListState {
-    job?: Job;
+    selectedjob?: Job;
     listPage: number;
 }
 
 const initialState: ListState = {
-    job: undefined,
     listPage: 1,
 };
 
@@ -15,10 +14,10 @@ export const jobsList = createSlice({
     name: "jobsList",
     initialState,
     reducers: {
-        setListitem(state: ListState, action) {
+        setSelectedJob(state: ListState, action) {
             return {
                 ...state,
-                listitem: action.payload,
+                selectedjob: action.payload,
             };
         },
         setListPage(state: ListState, action) {
@@ -30,4 +29,4 @@ export const jobsList = createSlice({
     },
 });
 
-export const { setListitem, setListPage } = jobsList.actions;
+export const { setSelectedJob, setListPage } = jobsList.actions;

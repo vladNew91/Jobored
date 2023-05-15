@@ -80,8 +80,8 @@ export const LayoutComponent: FC<LayoutComponentProps> = ({
                             <Button
                                 variant="text"
                                 sx={{
-                                    fontWeight: path === "/" ? 500 : 400,
-                                    color: path === "/" ? blue[500] : "inherit",
+                                    fontWeight: path !== "/favorites" ? 500 : 400,
+                                    color: path !== "/favorites" ? blue[500] : "inherit",
                                 }}
                                 onClick={() => goToPage("/")}
                             >
@@ -91,8 +91,8 @@ export const LayoutComponent: FC<LayoutComponentProps> = ({
                             <Button
                                 variant="text"
                                 sx={{
-                                    fontWeight: path !== "/" ? 500 : 400,
-                                    color: path !== "/" ? blue[500] : "inherit",
+                                    fontWeight: path === "/favorites" ? 500 : 400,
+                                    color: path === "/favorites" ? blue[500] : "inherit",
                                 }}
                                 onClick={() => goToPage("/favorites")}
                             >
