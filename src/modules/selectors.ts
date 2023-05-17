@@ -1,8 +1,14 @@
 import { RootState } from ".";
-import { Job } from "../types";
+import { Filters, Job } from "../types";
 
 export const selectedJob = (state: RootState): Job | undefined =>
-  state.jobsList.selectedjob;
+  state.jobs.selectedjob;
 
 export const listPage = (state: RootState): number =>
-  state.jobsList.listPage;
+  state.jobs.listPage;
+
+export const searchedKeyWord = (state: RootState): string =>
+  state.jobs.keyWord;
+
+export const selectFilters = (state: RootState): Filters =>
+  state.jobs.filters;

@@ -18,3 +18,10 @@ export type Industry = {
     key: number;
     title_rus: string;
 }
+
+export type Filters = {
+    published: number;
+    payment_from: string;
+    payment_to: string;
+    catalogues: string;
+}

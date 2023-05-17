@@ -1,32 +1,70 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Job } from "../../types";
+import { Filters, Job } from "../../types";
 
-export interface ListState {
+export interface JobsDataState {
+    filters: Filters;
     selectedjob?: Job;
     listPage: number;
+    keyWord: string;
 }
 
-const initialState: ListState = {
+const initialState: JobsDataState = {
+    filters: {
+        published: 1,
+        payment_from: "",
+        payment_to: "",
+        catalogues: "",
+    },
     listPage: 1,
+    keyWord: "",
 };
 
-export const jobsList = createSlice({
-    name: "jobsList",
+export const jobsData = createSlice({
+    name: "jobsData",
     initialState,
     reducers: {
-        setSelectedJob(state: ListState, action) {
+        setSelectedJob(state: JobsDataState, action) {
             return {
                 ...state,
-                selectedjob: action.payload,
+                selectedjob: action.payload as Job,
             };
         },
-        setListPage(state: ListState, action) {
+        setListPage(state: JobsDataState, action) {
             return {
                 ...state,
-                listPage: action.payload,
+                listPage: action.payload as number,
             };
         },
+        setFilters(state: JobsDataState, action) {
+            return {
+                ...state,
+                filters: action.payload,
+            };
+        },
+        setKeyWord(state: JobsDataState, action) {
+            return {
+                ...state,
+                keyWord: action.payload,
+            }
+        }
+        // toggleFavorite(state, action) {
+        //     if (!state.jobsData) return { ...state };
+
+        //     const jobId: number = action.payload;
+
+        //     return {
+        //         ...state,
+        //         jobsData: state.jobsData.map(
+        //             job => job.id === jobId ? { ...job, favorite: !job.favorite } : job
+        //         )
+        //     };
+        // },
     },
 });
 
-export const { setSelectedJob, setListPage } = jobsList.actions;
+export const {
+    setSelectedJob,
+    setListPage,
+    setFilters,
+    setKeyWord,
+} = jobsData.actions;

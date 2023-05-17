@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
 import { getAccessToken } from "../../api";
-import { JobsContainer } from "../../containers";
-import { FilterComponent } from "../../components";
+import { FilterContainer, JobsContainer } from "../../containers";
 
 export const HomePage: FC = (): JSX.Element => {
     const isAuthorized: boolean = !!localStorage.getItem("isAuth");
@@ -15,7 +14,7 @@ export const HomePage: FC = (): JSX.Element => {
             flexWrap="wrap"
             justifyContent="center"
         >
-            <FilterComponent />
+            <FilterContainer />
             <JobsContainer />
         </Box>
     );

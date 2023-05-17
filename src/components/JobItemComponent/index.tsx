@@ -4,7 +4,7 @@ import { getSalary } from "../../helpers";
 import StarIcon from '@mui/icons-material/Star';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 // import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Box, Paper, Tooltip, Typography, styled } from "@mui/material";
+import { Box, Paper, Typography, styled } from "@mui/material";
 
 export const Card = styled(Paper)(({ theme }) => ({
     display: "flex",
@@ -28,6 +28,8 @@ export const JobItemComponent: FC<JobItemComponentProps> = ({
     handleFavorite,
     handleSelectJob,
 }: JobItemComponentProps): JSX.Element => {
+    const favoriteIcon = <StarIcon color="primary" sx={{ cursor: "pointer" }} />;
+
     return (
         <Card>
             <Box
@@ -46,13 +48,12 @@ export const JobItemComponent: FC<JobItemComponentProps> = ({
                     {job.profession}
                 </Typography>
 
-                <Tooltip
-                    title="Favorite"
-                    sx={{ cursor: "pointer" }}
+                <div
+                    data-elem={`vacancy-${job.id}-shortlist-button`}
                     onClick={handleFavorite}
                 >
-                    <StarIcon color="primary" />
-                </Tooltip>
+                    {favoriteIcon}
+                </div>
             </Box>
 
             <Box display="flex" alignItems="center" m={jobPage ? "16px 0" : "12px 0"}>

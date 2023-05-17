@@ -1,5 +1,6 @@
 import {
     FC,
+    memo,
     useCallback,
 } from "react";
 import { Job } from "../../types";
@@ -13,14 +14,22 @@ type JobItemContainerProps = {
     jobPage?: boolean;
 }
 
-export const JobItemContainer: FC<JobItemContainerProps> = ({
+export const JobItemContainer: FC<JobItemContainerProps> = memo(({
     job,
     jobPage,
 }: JobItemContainerProps): JSX.Element | null => {
     const dispatch = useDispatch();
     const { goToPage } = useGoToPage();
 
-    const handleFavorite = useCallback(() => { }, []);
+    const handleFavorite = useCallback((job: Job) => {
+        const favorites = localStorage.getItem("favorites");
+
+        !favorites ? (
+            localStorage.setItem("favorites", JSON.stringify([job]))
+        ) : (
+            localStorage.setItem("favorites", JSON.stringify((JSON.parse(favorites) as Job[]).push(job)))
+        );
+    }, []);
 
     const handleSelectJob = useCallback((job: Job) => {
         if (jobPage) return;
@@ -32,12 +41,14 @@ export const JobItemContainer: FC<JobItemContainerProps> = ({
     if (!job) return null;
 
     return (
-        <JobItemComponent
-            job={job}
-            key={job.id}
-            jobPage={jobPage}
-            handleFavorite={handleFavorite}
-            handleSelectJob={() => handleSelectJob(job)}
-        />
+        <div data-elem={`vacancy-${job.id}`}>
+            <JobItemComponent
+                job={job}
+                key={job.id}
+                jobPage={jobPage}
+                handleFavorite={() => handleFavorite(job)}
+                handleSelectJob={() => handleSelectJob(job)}
+            />
+        </div>
     );
-};
+});
