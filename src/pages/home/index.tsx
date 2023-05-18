@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
 import { getAccessToken } from "../../api";
-import { FilterContainer, JobsContainer } from "../../containers";
+import { FilterContainer, JobsContainer, SearchContainer } from "../../containers";
 
 export const HomePage: FC = (): JSX.Element => {
     const isAuthorized: boolean = !!localStorage.getItem("isAuth");
@@ -15,7 +15,11 @@ export const HomePage: FC = (): JSX.Element => {
             justifyContent="center"
         >
             <FilterContainer />
-            <JobsContainer />
+
+            <Box m={{ xs: "0", sm: "0 28px" }} width="773px">
+                <SearchContainer />
+                <JobsContainer />
+            </Box>
         </Box>
     );
 };

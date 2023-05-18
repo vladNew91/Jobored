@@ -46,11 +46,11 @@ export const NotFoundPage: FC<NotFoundPageProps> = ({
                     Oops, nothing here yet!
                 </Typography>
 
-                {favoritesPage && (
+                {favoritesPage ? (
                     <SearchBtn onClick={() => goToPage("/")}>
                         Search Vacancies
                     </SearchBtn>
-                )}
+                ) : null}
             </NotFoundBox>
         </Box>
     );

@@ -7,7 +7,7 @@ import { Job } from "../../types";
 import { useDispatch } from "react-redux";
 import { useGoToPage } from "../../helpers";
 import { JobItemComponent } from "../../components";
-import { setSelectedJob } from "../../modules/slices";
+import { setSelectedJob, toggleFavorite } from "../../modules/slices";
 
 type JobItemContainerProps = {
     job: Job;
@@ -22,14 +22,8 @@ export const JobItemContainer: FC<JobItemContainerProps> = memo(({
     const { goToPage } = useGoToPage();
 
     const handleFavorite = useCallback((job: Job) => {
-        const favorites = localStorage.getItem("favorites");
-
-        !favorites ? (
-            localStorage.setItem("favorites", JSON.stringify([job]))
-        ) : (
-            localStorage.setItem("favorites", JSON.stringify((JSON.parse(favorites) as Job[]).push(job)))
-        );
-    }, []);
+        dispatch(toggleFavorite(job));
+    }, [dispatch]);
 
     const handleSelectJob = useCallback((job: Job) => {
         if (jobPage) return;

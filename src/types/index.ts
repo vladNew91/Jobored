@@ -8,6 +8,7 @@ export type Job = {
     vacancyRichText: string;
     payment_to: number;
     payment_from: number;
+    isFavorite: boolean;
 }
 
 export type JobsData = {

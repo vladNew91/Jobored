@@ -6,6 +6,7 @@ export interface JobsDataState {
     selectedjob?: Job;
     listPage: number;
     keyWord: string;
+    favorites: Job[] | [];
 }
 
 const initialState: JobsDataState = {
@@ -17,6 +18,7 @@ const initialState: JobsDataState = {
     },
     listPage: 1,
     keyWord: "",
+    favorites: [],
 };
 
 export const jobsData = createSlice({
@@ -38,27 +40,31 @@ export const jobsData = createSlice({
         setFilters(state: JobsDataState, action) {
             return {
                 ...state,
-                filters: action.payload,
+                filters: action.payload as Filters,
             };
         },
         setKeyWord(state: JobsDataState, action) {
             return {
                 ...state,
-                keyWord: action.payload,
-            }
-        }
-        // toggleFavorite(state, action) {
-        //     if (!state.jobsData) return { ...state };
+                keyWord: action.payload as string,
+            };
+        },
+        toggleFavorite(state, action) {
+            const newFavorite = action.payload as Job;
 
-        //     const jobId: number = action.payload;
+            const isNewfavoriteExist: boolean = state.favorites.some(el => el.id === newFavorite.id);
 
-        //     return {
-        //         ...state,
-        //         jobsData: state.jobsData.map(
-        //             job => job.id === jobId ? { ...job, favorite: !job.favorite } : job
-        //         )
-        //     };
-        // },
+            return {
+                ...state,
+                favorites: isNewfavoriteExist ? (
+                    //  delete favorite
+                    state.favorites.filter(el => el.id !== newFavorite.id)
+                ) : (
+                    //  add favorite
+                    [...state.favorites, newFavorite]
+                ),
+            };
+        },
     },
 });
 
@@ -67,4 +73,5 @@ export const {
     setListPage,
     setFilters,
     setKeyWord,
+    toggleFavorite,
 } = jobsData.actions;

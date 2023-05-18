@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Job } from "../../types";
 import { getSalary } from "../../helpers";
 import StarIcon from '@mui/icons-material/Star';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-// import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Box, Paper, Typography, styled } from "@mui/material";
 
 export const Card = styled(Paper)(({ theme }) => ({
@@ -28,7 +28,13 @@ export const JobItemComponent: FC<JobItemComponentProps> = ({
     handleFavorite,
     handleSelectJob,
 }: JobItemComponentProps): JSX.Element => {
-    const favoriteIcon = <StarIcon color="primary" sx={{ cursor: "pointer" }} />;
+    const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+    const favoriteIcon = (
+        <Box sx={{ cursor: "pointer" }} onClick={() => setIsFavorite(state => !state)}>
+            {!isFavorite ? <StarBorderIcon /> : <StarIcon color="primary" />}
+        </Box>
+    );
 
     return (
         <Card>

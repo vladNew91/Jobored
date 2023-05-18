@@ -1,12 +1,12 @@
 import { FC, memo, useCallback } from "react";
 import { useQuery } from "react-query";
+import { Skeleton } from "@mui/material";
 import { NotFoundPage } from "../../pages";
 import { Filters, Job } from "../../types";
 import { searchVacancies } from "../../api";
-import { Box, Skeleton } from "@mui/material";
 import { setListPage } from "../../modules/slices";
+import { JobItemContainer } from "../../containers";
 import { useDispatch, useSelector } from "react-redux";
-import { JobItemContainer, SearchContainer } from "../../containers";
 import { listPage, searchedKeyWord, selectFilters } from "../../modules/selectors";
 import { ErrorAlertComponent, JobsSkeletonComponent, PaginationComponent } from "../../components";
 
@@ -17,7 +17,10 @@ export const JobsContainer: FC = memo((): JSX.Element => {
     const keyWord: string = useSelector(searchedKeyWord);
     const filters: Filters = useSelector(selectFilters);
 
-    const { data: jobs, error } = useQuery(
+    const lastElement: number = jobsOnPage * page;
+    const firstElement: number = jobsOnPage * page - jobsOnPage;
+
+    const { data: jobsData, error } = useQuery(
         [
             "jobs",
             {
@@ -34,9 +37,6 @@ export const JobsContainer: FC = memo((): JSX.Element => {
         }
     );
 
-    const lastElement: number = jobsOnPage * page;
-    const firstElement: number = jobsOnPage * page - jobsOnPage;
-
     const dispatch = useDispatch();
 
     const handleChangePage = useCallback((
@@ -48,28 +48,26 @@ export const JobsContainer: FC = memo((): JSX.Element => {
 
     return (
         <>
-            <Box m={{ xs: "0", sm: "0 28px" }} width="773px">
-                <SearchContainer />
-
-                {!jobs ? (
+            <>
+                {!jobsData ? (
                     <JobsSkeletonComponent />
                 ) : (
-                    !jobs.objects.length ? <NotFoundPage /> : (
-                        jobs.objects.slice(firstElement, lastElement).map(
-                            (job: Job) => <div key={job.id}><JobItemContainer job={job} /></div>
+                    !jobsData.objects.length ? <NotFoundPage /> : (
+                        jobsData.objects.slice(firstElement, lastElement).map(
+                            (job: Job, i: number) => <div key={i}><JobItemContainer job={job} /></div>
                         ))
                 )}
 
-                {!jobs ? (
+                {!jobsData ? (
                     <Skeleton variant="text" sx={{ fontSize: 50, margin: "auto" }} width={150} />
                 ) : (
                     <PaginationComponent
                         page={page}
-                        jobs={jobs.objects}
+                        jobs={jobsData.objects}
                         handleChangePage={handleChangePage}
                     />
                 )}
-            </Box>
+            </>
 
             {error && <ErrorAlertComponent />}
         </>
