@@ -30,7 +30,6 @@ export const FilterContainer: FC = memo((): JSX.Element => {
             refetchOnWindowFocus: false,
         }
     );
-    
 
     const dispatch = useDispatch();
 

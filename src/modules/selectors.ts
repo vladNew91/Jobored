@@ -15,6 +15,3 @@ export const searchedKeyWord = (state: RootState): string =>
 
 export const selectFilters = (state: RootState): Filters =>
   state.jobs.filters;
-
-export const selectFavorites = (state: RootState): Job[] | undefined =>
-  state.jobs.favorites;

@@ -40,12 +40,12 @@ export const FavoritesPage: FC = (): JSX.Element => {
                 </Box>
             )}
 
-            {favorites?.length && (
+            {favorites?.length ? (
                 <PaginationComponent
                     page={page}
                     jobs={favorites}
                     handleChangePage={handleChangePage}
-                />)
+                />) : null
             }
         </>
     );

@@ -6,7 +6,6 @@ export interface JobsDataState {
     selectedjob?: Job;
     listPage: number;
     keyWord: string;
-    favorites: Job[] | [];
     vacanciesData?: Job[];
 }
 
@@ -19,7 +18,6 @@ const initialState: JobsDataState = {
     },
     listPage: 1,
     keyWord: "",
-    favorites: [],
 };
 
 export const jobsData = createSlice({

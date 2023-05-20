@@ -1,8 +1,8 @@
 import { QueryClient, useQuery } from "react-query";
-import { useSelector } from "react-redux";
 import { Filters } from "../../types";
-import { searchedKeyWord, selectFilters } from "../selectors";
+import { useSelector } from "react-redux";
 import { searchVacancies } from "../../api";
+import { searchedKeyWord, selectFilters } from "../selectors";
 
 export const queryClient = new QueryClient();
 

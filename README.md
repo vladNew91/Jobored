@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# Jobored App
+# [Demo](https://jobored-vladnew91.netlify.app)
+Application for seaching jobs. [UI](https://www.figma.com/file/HxEJ0c4CEEuh1fSBfX3w8I/Job-Search-App?node-id=62%3A491&t=ZRqSx5dicTETfTZD-1)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Functionality:
+### Job Search Page:
+1. Password authorization.
+2. The user sees a list of available vacancies,
+as well as filters to narrow the search.
+3. The user can click on a vacancy and get to the “Vacancy” page for its detailed view.
+4. The user can remove the vacancy from favorites by clicking again on the star.
+
+### Favorites Page:
+1. The user sees a list of saved jobs.
+2. The user can remove a vacancy from favorites by clicking on the star.
+3. The user can click on a vacancy and get to the “Vacancy” page for its detailed view.
+
+### Vacancy Page:
+1. The user sees the details of the vacancy.
+
+### Additional functionality:
+1. Display loader while waiting for server response.
+2. Show a separate page (empty state) if the list of vacancies is empty on the pages "Jobs" and "Favorites".
+3. Pagination.
+4. Adaptive UI.
+
+
+## List of technologies
+
+1. [React](https://reactjs.org/)
+2. [TypeScript](https://www.typescriptlang.org/docs/)
+3. [MUI](https://mui.com/)
+4. [React Router V6](https://reactrouter.com/en/main)
+5. [React Query](https://tanstack.com/query/v3/docs/react/overview)
+6. [Redux Toolkit](https://redux-toolkit.js.org/)
 
 ## Available Scripts
 
-In the project directory, you can run:
+Clone this repo.\
+In the project directory, you can install dependences:
 
-### `yarn start`
+```
+yarn
+```
 
-Runs the app in the development mode.\
+
+### Getting Started
+
+
+Run the development server:
+
+```
+yarn start
+```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

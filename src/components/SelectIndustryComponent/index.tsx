@@ -32,7 +32,7 @@ export const SelectIndustryComponent: FC<SelectIndustryComponentProps> = ({
             onChange={handleChangeIndustry}
             disabled={!data}
           >
-            {data && data.map((el: Industry) => (
+            {data ? data.map((el: Industry) => (
               <MenuItem
                 key={el.key}
                 value={el.title_rus}
@@ -40,7 +40,7 @@ export const SelectIndustryComponent: FC<SelectIndustryComponentProps> = ({
               >
                 {el.title_rus}
               </MenuItem>
-            ))}
+            )): false}
           </Select>
         </div>
       </FormControl>
