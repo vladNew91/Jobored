@@ -1,16 +1,19 @@
-import { QueryFunctionContext } from 'react-query';
 import { Industry, JobsData } from "../types";
+import { QueryFunctionContext } from 'react-query';
+import { setAuthCookies, setAuthToStorage } from '../helpers';
 
 const URL = "https://startup-summer-2023-proxy.onrender.com/2.0/";
 const LOGIN = "sergei.stralenia@gmail.com";
 const PASSWORD = "paralect123";
 const CLIENT_ID = "2356"
-const SEKRET_KEY = "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948";
+const SEKRET_KEY = (
+    "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948"
+);
 
 export const getAccessToken = async () => {
     const response = await fetch(
-        `${URL}oath2/password/?login=${LOGIN}&password=${PASSWORD}`
-        + `&client_id=${CLIENT_ID}&client_secret=${SEKRET_KEY}`,
+        `${URL}oauth2/password/?login=${LOGIN}&password=${PASSWORD}` +
+        `&client_id=${CLIENT_ID}&client_secret=${SEKRET_KEY}&hr=0`,
         {
             method: 'GET',
             headers: {
@@ -22,10 +25,8 @@ export const getAccessToken = async () => {
 
     const res = await response.json();
 
-    document.cookie = `access_token=${res.access_token}; path=/; HttpOnly`;
-    document.cookie = `refresh_token=${res.refresh_token}; expires=${res.expires_in}; path=/; HttpOnly`;
-
-    localStorage.setItem("isAuth", "true");
+    setAuthCookies(res);
+    setAuthToStorage();
 };
 
 export const getCatalogues = async (): Promise<Industry[]> => {
@@ -37,7 +38,7 @@ export const getCatalogues = async (): Promise<Industry[]> => {
         },
     });
 
-    const res = await response.json();
+    const res: Industry[] = await response.json();
 
     return res;
 };
@@ -57,7 +58,7 @@ export const searchVacancies = async ({
     const [_, { keyWord, from, to, catalogues }] = queryKey;
 
     const url = `${URL}vacancies/?${keyWord ?
-            `keyword=${keyWord}` : ""
+        `keyword=${keyWord}` : ""
         }${from ?
             `&payment_from=${from}` : ""
         }${to ?
@@ -76,7 +77,7 @@ export const searchVacancies = async ({
         }
     );
 
-    const res = await response.json();
+    const res: JobsData = await response.json();
 
     return res;
 };

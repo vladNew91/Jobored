@@ -1,43 +1,37 @@
-import { FC, memo, useCallback } from "react";
-import { useQuery } from "react-query";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import { NotFoundPage } from "../../pages";
-import { Filters, Job } from "../../types";
-import { searchVacancies } from "../../api";
-import { setListPage } from "../../modules/slices";
+import { Job } from "../../types";
+import { setListPage, setVacanciesData } from "../../modules/slices";
 import { JobItemContainer } from "../../containers";
 import { useDispatch, useSelector } from "react-redux";
-import { listPage, searchedKeyWord, selectFilters } from "../../modules/selectors";
+import { listPage, vacanciesData } from "../../modules/selectors";
 import { ErrorAlertComponent, JobsSkeletonComponent, PaginationComponent } from "../../components";
+import { useGetVacanciesQuery } from "../../modules";
 
 const jobsOnPage = 4;
 
 export const JobsContainer: FC = memo((): JSX.Element => {
     const page: number = useSelector(listPage);
-    const keyWord: string = useSelector(searchedKeyWord);
-    const filters: Filters = useSelector(selectFilters);
+    const vacancies: Job[] | undefined = useSelector(vacanciesData);
 
     const lastElement: number = jobsOnPage * page;
     const firstElement: number = jobsOnPage * page - jobsOnPage;
 
-    const { data: jobsData, error } = useQuery(
-        [
-            "jobs",
-            {
-                keyWord: keyWord,
-                from: filters.payment_from,
-                to: filters.payment_to,
-                catalogues: filters.catalogues,
-            }
-        ],
-        searchVacancies,
-        {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-        }
-    );
+    const { data, error } = useGetVacanciesQuery();
+
+    const [state, setState] = useState(data);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!data) return;
+
+        if (JSON.stringify(data) !== JSON.stringify(state)) {
+            dispatch(setVacanciesData(data.objects));
+            setState(data);
+        }
+    }, [data, state, dispatch]);
 
     const handleChangePage = useCallback((
         e: React.ChangeEvent<unknown>,
@@ -49,21 +43,21 @@ export const JobsContainer: FC = memo((): JSX.Element => {
     return (
         <>
             <>
-                {!jobsData ? (
+                {!vacancies ? (
                     <JobsSkeletonComponent />
                 ) : (
-                    !jobsData.objects.length ? <NotFoundPage /> : (
-                        jobsData.objects.slice(firstElement, lastElement).map(
+                    !vacancies.length ? <NotFoundPage /> : (
+                        vacancies.slice(firstElement, lastElement).map(
                             (job: Job, i: number) => <div key={i}><JobItemContainer job={job} /></div>
                         ))
                 )}
 
-                {!jobsData ? (
+                {!vacancies ? (
                     <Skeleton variant="text" sx={{ fontSize: 50, margin: "auto" }} width={150} />
                 ) : (
                     <PaginationComponent
                         page={page}
-                        jobs={jobsData.objects}
+                        jobs={vacancies}
                         handleChangePage={handleChangePage}
                     />
                 )}

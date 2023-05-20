@@ -26,3 +26,9 @@ export type Filters = {
     payment_to: string;
     catalogues: string;
 }
+
+export type Auth = {
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+}

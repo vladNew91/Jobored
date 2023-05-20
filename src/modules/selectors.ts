@@ -1,6 +1,9 @@
 import { RootState } from ".";
 import { Filters, Job } from "../types";
 
+export const vacanciesData = (state: RootState): Job[] | undefined =>
+  state.jobs.vacanciesData;
+
 export const selectedJob = (state: RootState): Job | undefined =>
   state.jobs.selectedjob;
 

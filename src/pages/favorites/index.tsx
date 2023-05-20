@@ -6,13 +6,18 @@ import { setListPage } from "../../modules/slices";
 import { JobItemContainer } from "../../containers";
 import { useDispatch, useSelector } from "react-redux";
 import { PaginationComponent } from "../../components";
-import { listPage, selectFavorites } from "../../modules/selectors";
+import { listPage, vacanciesData } from "../../modules/selectors";
 
-// const jobsOnPage = 4;
+const jobsOnPage = 4;
 
 export const FavoritesPage: FC = (): JSX.Element => {
-    const favorites = useSelector(selectFavorites);
-    const page: number = useSelector(listPage);
+    const vacancies = useSelector(vacanciesData);
+    const page: number = useSelector(listPage);    
+
+    const favorites = vacancies?.filter(el => el.isFavorite);
+
+    const lastElement: number = jobsOnPage * page;
+    const firstElement: number = jobsOnPage * page - jobsOnPage;
 
     const dispatch = useDispatch();
 
@@ -29,7 +34,7 @@ export const FavoritesPage: FC = (): JSX.Element => {
                 <NotFoundPage favoritesPage />
             ) : (
                 <Box m={{ xs: "0", sm: "auto" }} maxWidth="773px">
-                    {favorites.map(
+                    {favorites.slice(firstElement, lastElement).map(
                         (job: Job) => <JobItemContainer job={job} key={job.id} />
                     )}
                 </Box>

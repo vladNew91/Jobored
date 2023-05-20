@@ -7,6 +7,7 @@ export interface JobsDataState {
     listPage: number;
     keyWord: string;
     favorites: Job[] | [];
+    vacanciesData?: Job[];
 }
 
 const initialState: JobsDataState = {
@@ -25,6 +26,12 @@ export const jobsData = createSlice({
     name: "jobsData",
     initialState,
     reducers: {
+        setVacanciesData(state: JobsDataState, action) {
+            return {
+                ...state,
+                vacanciesData: action.payload as Job[],
+            };
+        },
         setSelectedJob(state: JobsDataState, action) {
             return {
                 ...state,
@@ -52,23 +59,18 @@ export const jobsData = createSlice({
         toggleFavorite(state, action) {
             const newFavorite = action.payload as Job;
 
-            const isNewfavoriteExist: boolean = state.favorites.some(el => el.id === newFavorite.id);
+            if (!state.vacanciesData) return;
 
             return {
                 ...state,
-                favorites: isNewfavoriteExist ? (
-                    //  delete favorite
-                    state.favorites.filter(el => el.id !== newFavorite.id)
-                ) : (
-                    //  add favorite
-                    [...state.favorites, newFavorite]
-                ),
+                vacanciesData: state.vacanciesData.map(el => el.id === newFavorite.id ? { ...el, isFavorite: !el.isFavorite } : el)
             };
         },
     },
 });
 
 export const {
+    setVacanciesData,
     setSelectedJob,
     setListPage,
     setFilters,

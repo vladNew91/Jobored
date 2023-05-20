@@ -4,7 +4,7 @@ import { getAccessToken } from "../../api";
 import { FilterContainer, JobsContainer, SearchContainer } from "../../containers";
 
 export const HomePage: FC = (): JSX.Element => {
-    const isAuthorized: boolean = !!localStorage.getItem("isAuth");
+    const isAuthorized: boolean = !!sessionStorage.getItem("isAuth");
 
     if (!isAuthorized) getAccessToken();
 

@@ -29,7 +29,7 @@ export const PaginationComponent: FC<PaginationComponentProps> = ({
                 shape="rounded"
                 siblingCount={1}
                 variant="outlined"
-                count={jobs.length / jobsOnPage}
+                count={Math.round(jobs.length / jobsOnPage)}
                 onChange={handleChangePage}
             />
         </Box>
